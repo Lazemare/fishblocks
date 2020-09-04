@@ -30,12 +30,12 @@ function _block_git -d 'Returns Git block'
 	echo (set_color -b $git_bg -o black) $block
 end
 
-# Private mode block
-function _block_private -d 'Returns private mode block'
-	if  not test -z $fish_private_mode
-		set block (set_color -b black white)' 﫸'
+# Status block
+function _block_status -d 'Returns status block'
+	if test $prev_status -ne 0
+		set block (set_color -b red -o yellow)' '$prev_status' '
 	else
-		set block
+		set block (set_color -b black -o green)' ✔ '
 	end
 	echo $block
 end
