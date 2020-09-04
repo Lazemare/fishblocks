@@ -188,7 +188,14 @@ function _block_pwd -d 'Returns PWD block'
 	else
 		set pwd_color red
 	end
-	set block (set_color -b black -o $pwd_color)' '(prompt_pwd)' '
+	# strip the `~'
+	set first_char (string sub --length 1 (prompt_pwd))
+	if test "$first_char" = "~"
+		set my_pwd ''(string sub -s 2 (prompt_pwd))
+	else 
+		set my_pwd (prompt_pwd)
+	end
+	set block (set_color -b black -o $pwd_color)' '$my_pwd' '
 	echo $block
 end
 
@@ -197,6 +204,7 @@ end
 # ░▀▀▀░▀▀▀░▀░░░░▀░░░░░░▀░▀░▀░▀░▀░▀░▀▀░░░░▀░░░▀░▀░▀▀▀░▀░▀░▀░░░░▀░
 
 function fish_prompt
+	set -g prev_status $status
 	# Window title
 	switch $TERM;
 		case xterm'*' vte'*';
