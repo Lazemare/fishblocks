@@ -195,6 +195,7 @@ function _block_pwd -d 'Returns PWD block'
 	else 
 		set my_pwd (prompt_pwd)
 	end
+	set my_pwd (echo $my_pwd | sed "s/\//∙/g")
 	set block (set_color -b black -o $pwd_color)' '$my_pwd' '
 	echo $block
 end
