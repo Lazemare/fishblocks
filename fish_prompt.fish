@@ -44,7 +44,7 @@ end
 
 # OS type
 function _fishblocks_os_type -d 'Returns OS type'
-	set os_type (sh -c "echo \$OSTYPE")
+	set os_type (uname -s)
 	echo $os_type
 end
 
@@ -124,15 +124,15 @@ end
 function _fishblocks_os_icon -d 'Returns OS icon'
 	# Icons sauce: https://nerdfonts.com/cheat-sheet
 	switch (_fishblocks_os_type)
-		case linux-gnu
+		case Linux GNU'*'
 			set icon (_fishblocks_distro_icon)
-		case darwin
+		case Darwin
 			set icon ''
 		case CYGWIN_NT-'*' MSYS_NT-'*'
 			set icon ''
-		case freebsd openbsd dragonfly
+		case '*'BSD DragonFly
 			set icon ''
-		case sunos
+		case SunOS
 			set icon ''
 		case '*'
 			set icon ''
